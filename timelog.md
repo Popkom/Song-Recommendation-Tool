@@ -85,3 +85,67 @@
 ### 4 Oct 2023
 
 - _1.5 hour_ Wrote a function to keep the user's taste profile of tags, sorted by accumulated rating each tag has, pushed code to github
+
+* _0.5 hour_ Supervisor meeting preparation
+
+### 5 Oct 2023
+
+- _0.5 hour_ More meeting preparation, supervisor meeting
+- _1.5 hour_ Uploaded meeting minutes to moodle, Send signal to back-end when submit button is pressed, initial work on recommendations
+
+### 6 Oct 2023
+
+- _2 hours_ More work on recommendations, gets a lot of tracks based on top 3 tags for now and finds duplicates as recommendations(for now)
+
+### 7 Oct 2023
+
+- _3 hours_ Thinking about and tweaking recommendation algorithm and comparing results to try and see what gets better recommendations
+
+## Week 4
+
+### 9 Oct 2023
+
+- _2 hours_ more tweaking of recommendation algorithm because the top tracks of some tags are not really representative of the actual tag
+
+### 10 Oct 2023
+
+- _2 hours_ Thought of new approach of getting recommendations, code now gets top artists of top 2 tags as well, next task is creating new song scoring system
+
+### 11 Oct 2023
+
+- _2 hours_ More work on scoring system
+
+### 12 Oct 2023
+
+- _2 hours_ Still working on scoring system and thinking of how it should work
+
+### 14 Oct 2023
+
+- _2.5 hours_ More work on scoring system
+  _0.5 hour_ Supervisor meeting preparation
+
+## Week 5
+
+### 16 Oct 2023
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _1.5 hour_ Completed first version of scoring system and recommendations, done a bit of testing
+
+### 17 Oct 2023
+
+- _1 hour_ More testing, satisfying results, could definitely use improvements
+
+* _1 hour_ Thinking and planning about potential improvements, maybe a way to give sub-genres priority to enhance recommendations
+
+### 18 Oct 2023
+
+- _2.5 hours_ More planning about potential improvements, code now doesn't return more than 2 recommendations by the same artist
+
+### 19 Oct 2023
+
+- _1 hour_ User can now set number of recommendation they want, setup in communication to pass other parameters to back-end
+
+### 20 Oct 2023
+
+- _1.5 hour_ User can now set how many recommendations from the same artist should be allowed, recommendations and top 3 user tags now printed in front end.
+- _0.5 hour_ Update github repo, supervisor meeting preparation

@@ -9,9 +9,12 @@ function App() {
   const [artist, setArtist] = useState("");
   const [rating, setRating] = useState(0);
   const [songComponents, setSongComponents] = useState([]);
-  const [data, setData] = useState("");
   const [messageData, setMessageData] = useState({ message: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingRecs, setLoadingRecs] = useState(false);
+  const [numOfRecs, setNumOfRecs] = useState("");
+  const [numOfSames, setNumOfSames] = useState("");
+  const [recs, setRecs] = useState({ message: "" });
   const addSongComponent = () => {
     sendData();
   };
@@ -20,6 +23,30 @@ function App() {
   };
   const artistChange = (e: ChangeEvent<HTMLInputElement>) => {
     setArtist(e.target.value);
+  };
+  const numOfRecsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNumOfRecs(e.target.value);
+  };
+  const numOfSamesChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNumOfSames(e.target.value);
+  };
+  const submitSongs = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/submit-songs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(numOfRecs + "/" + numOfSames),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+      setRecs(await response.json());
+    } catch (error) {
+      console.error("Error: ", error);
+    }
   };
   const sendData = async () => {
     try {
@@ -81,7 +108,25 @@ function App() {
           ))}
         </div>
         <button>Remove Song</button>
-        <button>Submit</button>
+        <p>Enter number of recommendations to get:</p>
+        <input
+          placeholder="Number of recommendations"
+          value={numOfRecs}
+          onChange={numOfRecsChange}
+        />
+        <p>
+          How many recommendations from the same artist should be
+          allowed?(Recommended: 2)
+        </p>
+        <input
+          placeholder="Same artist recs"
+          value={numOfSames}
+          onChange={numOfSamesChange}
+        />
+        <button onClick={submitSongs} disabled={loadingRecs}>
+          {loadingRecs ? "Submitting..." : "Submit"}
+        </button>
+        {recs.message}
       </div>
     </div>
   );
