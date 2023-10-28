@@ -143,9 +143,28 @@
 
 ### 19 Oct 2023
 
-- _1 hour_ User can now set number of recommendation they want, setup in communication to pass other parameters to back-end
+- _1 hour_ User can now set number of recommendations they want, setup in communication to pass other parameters to back-end
 
 ### 20 Oct 2023
 
 - _1.5 hour_ User can now set how many recommendations from the same artist should be allowed, recommendations and top 3 user tags now printed in front end.
 - _0.5 hour_ Update github repo, supervisor meeting preparation
+
+## Week 6
+
+### 24 Oct 2023
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+
+### 26 Oct 2023
+
+- _2 hours_ Implemented remove song button, it removes the latest song added
+
+### 27 Oct 2023
+
+- _2 hours_ Implemented clear songs button, it also asks for confirmation, initial work to get list of all tags to make priority list
+
+### 28 Oct 2023
+
+- _2.5 hours_ User profile now takes into account how many times a tag was added to a song, boosting sub-genres even higher
+- _0.5 hour_ Supervisor meeting prep, pushed to github repository

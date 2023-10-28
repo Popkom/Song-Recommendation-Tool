@@ -16,7 +16,7 @@ function App() {
   const [numOfSames, setNumOfSames] = useState("");
   const [recs, setRecs] = useState({ message: "" });
   const addSongComponent = () => {
-    sendData();
+    sendAddData();
   };
   const trackChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTrack(e.target.value);
@@ -48,7 +48,7 @@ function App() {
       console.error("Error: ", error);
     }
   };
-  const sendData = async () => {
+  const sendAddData = async () => {
     try {
       setIsLoading(true);
       const response = await fetch("http://localhost:5000/api/data", {
@@ -69,8 +69,61 @@ function App() {
       setIsLoading(false);
     }
   };
+  const sendRemoveData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:5000/api/data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify("r"),
+      });
+      if (!response.ok) {
+        throw new Error("HTTP error! Status: ${response.status}");
+      }
+      setMessageData({ message: "r" });
+    } catch (error) {
+      console.error("Error sending data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const clearSongs = () => {
+    const userConfirmed = window.confirm(
+      "Are you sure you want to clear all songs?"
+    );
+    if (userConfirmed) {
+      sendClearData();
+    }
+  };
+
+  const sendClearData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:5000/api/data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify("c"),
+      });
+      if (!response.ok) {
+        throw new Error("HTTP error! Status: ${response.status}");
+      }
+      setMessageData({ message: "c" });
+    } catch (error) {
+      console.error("Error sending data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   useEffect(() => {
-    if (messageData.message !== "") {
+    if (
+      messageData.message !== "" &&
+      messageData.message !== "r" &&
+      messageData.message !== "c"
+    ) {
       setSongComponents((prevComponents) => [
         ...prevComponents,
         [
@@ -80,6 +133,18 @@ function App() {
           </div>,
         ],
       ]);
+    } else if (messageData.message == "r") {
+      setSongComponents((prevComponents) => {
+        if (prevComponents.length > 0) {
+          const updatedComponents = [...prevComponents];
+          updatedComponents.pop();
+          return updatedComponents;
+        } else {
+          return prevComponents;
+        }
+      });
+    } else if (messageData.message == "c") {
+      setSongComponents([]);
     }
   }, [messageData]);
   return (
@@ -107,7 +172,12 @@ function App() {
             <div key={index}>{component}</div>
           ))}
         </div>
-        <button>Remove Song</button>
+        <button onClick={sendRemoveData} disabled={isLoading}>
+          {isLoading ? "Removing..." : "Remove Song"}
+        </button>
+        <button onClick={clearSongs} disabled={isLoading}>
+          {isLoading ? "Clearing..." : "Clear Songs"}
+        </button>
         <p>Enter number of recommendations to get:</p>
         <input
           placeholder="Number of recommendations"
