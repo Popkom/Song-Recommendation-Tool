@@ -5,6 +5,19 @@ import Rating from "@mui/material/Rating";
 import { ChangeEvent, useState, useEffect } from "react";
 
 function App() {
+  const SpotCID = "074ce5408b5d4e25975ad957adf4b0b9";
+  const redirect_uri = "http://localhost:3000";
+  const auth_endpoint = "https://accounts.spotify.com/authorize";
+  const scopes = [
+    "user-read-private",
+    "user-read-email",
+    "playlist-modify-public",
+    "playlist-modify-private",
+  ];
+  const resp_type = "token&show_dialog=true";
+  const loginurl = `${auth_endpoint}?client_id=${SpotCID}&redirect_uri=${redirect_uri}&scope=${scopes.join(
+    "%20"
+  )}&response_type=${resp_type}`;
   const [track, setTrack] = useState("");
   const [artist, setArtist] = useState("");
   const [rating, setRating] = useState(0);
@@ -15,6 +28,11 @@ function App() {
   const [numOfRecs, setNumOfRecs] = useState("");
   const [numOfSames, setNumOfSames] = useState("");
   const [recs, setRecs] = useState({ message: "" });
+  const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
+  const [loadingPlaylist, setLoadingPlaylist] = useState(false);
+  const [playlist, setPlaylist] = useState({ message: "", errors: "" });
+  const [createdPlaylist, setCreatedPlaylist] = useState(false);
+  let loading = false;
   const addSongComponent = () => {
     sendAddData();
   };
@@ -32,6 +50,7 @@ function App() {
   };
   const submitSongs = async () => {
     try {
+      setLoadingRecs(true);
       const response = await fetch("http://localhost:5000/api/submit-songs", {
         method: "POST",
         headers: {
@@ -44,6 +63,8 @@ function App() {
         throw new Error("Failed to submit");
       }
       setRecs(await response.json());
+      setShowCreatePlaylist(true);
+      setLoadingRecs(false);
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -118,6 +139,16 @@ function App() {
       setIsLoading(false);
     }
   };
+  const getTokenFromUrl = () => {
+    return window.location.hash
+      .substring(1)
+      .split("&")
+      .reduce((initial, item) => {
+        let parts = item.split("=");
+        initial[parts[0]] = decodeURIComponent(parts[1]);
+        return initial;
+      }, {});
+  };
   useEffect(() => {
     if (
       messageData.message !== "" &&
@@ -147,6 +178,49 @@ function App() {
       setSongComponents([]);
     }
   }, [messageData]);
+  useEffect(() => {
+    const t = getTokenFromUrl().access_token;
+    if (
+      t &&
+      t != "" &&
+      t[0] != " " &&
+      t != null &&
+      !loadingPlaylist &&
+      !loading
+    ) {
+      setLoadingPlaylist(true);
+      loading = true;
+      const createPlaylist = async () => {
+        try {
+          console.log("here");
+          const response = await fetch(
+            "http://localhost:5000/api/create-playlist",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(t),
+            }
+          );
+          if (!response.ok) {
+            throw new Error("HTTP error! Status: ${response.status}");
+          }
+          setPlaylist(await response.json());
+        } catch (error) {
+          console.error("Error sending data:", error);
+        } finally {
+          setLoadingPlaylist(false);
+          setCreatedPlaylist(true);
+          loading = false;
+          window.location.hash = "";
+        }
+      };
+      if (!loadingPlaylist) {
+        createPlaylist();
+      }
+    }
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
@@ -197,6 +271,19 @@ function App() {
           {loadingRecs ? "Submitting..." : "Submit"}
         </button>
         {recs.message}
+        {showCreatePlaylist && (
+          <button>
+            <a href={loginurl} target="_blank">
+              {loadingPlaylist
+                ? "Creating a Spotify Playlist.. Please Wait"
+                : "Create a Spotify Playlist"}
+            </a>
+          </button>
+        )}
+        <a href={playlist.message} target="_blank">
+          {createdPlaylist ? "Link to Playlist" : ""}
+        </a>
+        <p>{createdPlaylist ? playlist.errors : ""}</p>
       </div>
     </div>
   );

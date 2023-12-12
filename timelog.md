@@ -1,9 +1,9 @@
 # Timelog
 
-- PROJECT NAME
-- YOUR NAME
-- STUDENT_ID
-- SUPERVISOR NAME
+- Song Recommendation Tool
+- Leonidas Ioannou
+- 2454882i
+- Chris McCaig
 
 ## Guidance
 
@@ -168,3 +168,144 @@
 
 - _2.5 hours_ User profile now takes into account how many times a tag was added to a song, boosting sub-genres even higher
 - _0.5 hour_ Supervisor meeting prep, pushed to github repository
+
+## Week 7
+
+### 30 Oct 2023
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _1 hour_ Fixed bug where setting number of recommendations from same artist to 1 would not work
+
+* _0.5 hour_ Fixed remove song button
+
+### 31 Oct 2023
+
+- _1 hour_ Thinking of how to improve recommendations even more, potentially give higher scores to songs from artists the user inputs, could help in cases of not many recommendations
+- _1 hour_ Started work on wireframes on figma
+
+### 1 Nov 2023
+
+- _2 hours_ Made more wireframes
+
+## Week 8
+
+### 7 Nov 2023
+
+- _2 hours_ Songs from artists the user inputs get a boost in score, would help in cases where there are not that many recommendations
+
+* _1 hour_ Looking into possible spotify integration, what would make a useful feature
+
+### 8 Nov 2023
+
+- _1 hour_ Trying to understand Spotify API, some basic setup work
+- _0.5 hour_ Supervisor meeting preparation
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+
+### 9 Nov 2023
+
+- _2 hours_ Can get Spotify IDs of recommended tracks, bugfixing required as sometimes requests don't work
+
+### 10 Nov 2023
+
+- _2 hours_ Searching some songs would return 0 results, fixed it by having a different query run if it happens
+
+### 11 Nov 2023
+
+- _2 hours_ Figuring out how to create a playlist with API calls, probably needs to be done on front-end
+- _0.5 hour_ Supervisor meeting preparation
+
+## Week 9
+
+### 13 Nov 2023
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+
+* _1.5 hour_ Writing code to get user authorization, spotify authorization popup works, need to make sure I store the token properly
+
+### 14 Nov 2023
+
+- _2 hours_ Trying to figure out how to make program wait for user to finish authorizing the app from the spotify pop-up
+
+### 15 Nov 2023
+
+- _2 hours_ can get proper user access token and send it to back-end, trying to fix bug where reseting url clears the token
+
+### 16 Nov 2023
+
+- _2 hours_ User access token is now being properly sent to the back-end, however a new bug that I am trying to fix has appeared where it is sent twice
+
+### 17 Nov 2023
+
+- _2 hours_ Create a Spotify Playlist feature almost done ,just need to fix a small syntax bug in the request to populate the already-created playlist
+
+### 18 Nov 2023
+
+- _2 hours_ Finished create a playlist feature, started improvements on spotify search track matching
+- _0.5 hour_ Supervisor meeting preparation(meeting ended up being cancelled)
+
+## Week 10
+
+### 21 Nov 2023
+
+- _2 hours_ Made some improvements on spotify search track matching, still needs more
+
+### 22 Nov 2023
+
+- _1 hours_ Still trying to improve spotify search track matching
+
+### 24 Nov 2023
+
+- _2 hours_ More refinements to spotify search track matching
+
+### 25 Nov 2023
+
+- _0.5 hour_ Still trying to perfect the spotify search track matching - current issue is artists with numbers in their name
+- _0.5 hour_ Supervisor meeting preparation
+
+### Week 11
+
+## 27 Nov 2023
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+
+* _1.5 hour_ Added some code that converts the number to words for a specific artist to make it work since after testing some other cases, other artists with numbers in their name work correctly, still some cases that don't work though, needs more improvement
+
+## 29 Nov 2023
+
+- _2 hours_ Testing shows that many examples still dont return spotify search results, trying to figure out how to use a framework made for using the spotify API with python(spotipy)
+
+## 30 Nov 2023
+
+- _2 hours_ After implementing search with spotipy, nothing different
+
+## 1 Dec 2023
+
+- _2 hours_ Researching the issue online and trying workarounds
+
+## 2 Dec 2023
+
+- _2.5 hours_ Still trying to research workarounds, not many results, trying to think of what to do with this feature
+
+### Week 12
+
+## 4 Dec 2023
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+
+* _1 hour_ Tweaking around the cases for the spotify searchs
+
+## 6 Dec 2023
+
+- _2 hours_ going over and tweaking search cases to get better results
+
+### Week 13
+
+## 11 Dec 2023
+
+- _8 hours_ Overall performance of Spotify API Search improved with more tweaks, Added error handling in case songs don't have 3 or more tags, in case user's profile is empty when they click submit, a message appears with the tracks that could not be found on Spotify. Thinking of other possible features
+
+## 12 Dec 2023
+
+- _1 hour_ Thought of new feature, get and display a list of the most popular last.fm tags(as suggestions), allow user to prioritise some tags by adding three input fields
+- _0.5 hour_ Supervisor meeting preparation, updated github repository
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
