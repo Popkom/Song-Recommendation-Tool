@@ -22,16 +22,22 @@ function App() {
   const [artist, setArtist] = useState("");
   const [rating, setRating] = useState(0);
   const [songComponents, setSongComponents] = useState([]);
-  const [messageData, setMessageData] = useState({ message: "" });
+  const [messageData, setMessageData] = useState({ message: "", empty: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [loadingRecs, setLoadingRecs] = useState(false);
   const [numOfRecs, setNumOfRecs] = useState("");
   const [numOfSames, setNumOfSames] = useState("");
-  const [recs, setRecs] = useState({ message: "" });
+  const [recs, setRecs] = useState({ message: "", taste: "" });
   const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
   const [loadingPlaylist, setLoadingPlaylist] = useState(false);
   const [playlist, setPlaylist] = useState({ message: "", errors: "" });
   const [createdPlaylist, setCreatedPlaylist] = useState(false);
+  const [topTags, setTopTags] = useState({ message: "" });
+  const [gotTags, setGotTags] = useState(false);
+  const [tagOne, setTagOne] = useState("");
+  const [tagTwo, setTagTwo] = useState("");
+  const [tagThree, setTagThree] = useState("");
+  const [checked, setChecked] = useState(false);
   let loading = false;
   const addSongComponent = () => {
     sendAddData();
@@ -48,6 +54,18 @@ function App() {
   const numOfSamesChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNumOfSames(e.target.value);
   };
+  const tagOneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTagOne(e.target.value);
+  };
+  const tagTwoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTagTwo(e.target.value);
+  };
+  const tagThreeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTagThree(e.target.value);
+  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setChecked(!checked);
+  };
   const submitSongs = async () => {
     try {
       setLoadingRecs(true);
@@ -56,7 +74,19 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(numOfRecs + "/" + numOfSames),
+        body: JSON.stringify(
+          numOfRecs +
+            "/" +
+            numOfSames +
+            "/" +
+            tagOne +
+            "/" +
+            tagTwo +
+            "/" +
+            tagThree +
+            "/" +
+            checked
+        ),
       });
 
       if (!response.ok) {
@@ -69,6 +99,13 @@ function App() {
       console.error("Error: ", error);
     }
   };
+
+  useEffect(() => {
+    if (recs.message !== "") {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  }, [recs]);
+
   const sendAddData = async () => {
     try {
       setIsLoading(true);
@@ -83,13 +120,31 @@ function App() {
         throw new Error("HTTP error! Status: ${response.status}");
       }
       const result = await response.json();
-      setMessageData(result);
+      if (result.message == "404") {
+        alert(
+          track +
+            " - " +
+            artist +
+            " was not found. Make sure your spellings of song title and artist name are correct."
+        );
+      } else {
+        if (result.message == "dup") {
+          alert("Song already added.");
+        } else if (result.empty == "yes") {
+          alert("No genre tags recorded for this song");
+        } else if (result.message == "ratingerror") {
+          alert("Invalid rating - Rating must be greater than 0");
+        } else {
+          setMessageData(result);
+        }
+      }
     } catch (error) {
       console.error("Error sending data:", error);
     } finally {
       setIsLoading(false);
     }
   };
+
   const sendRemoveData = async () => {
     try {
       setIsLoading(true);
@@ -103,6 +158,10 @@ function App() {
       if (!response.ok) {
         throw new Error("HTTP error! Status: ${response.status}");
       }
+      const result = await response.json();
+      if (result.message == "e") {
+        alert("No songs to remove");
+      }
       setMessageData({ message: "r" });
     } catch (error) {
       console.error("Error sending data:", error);
@@ -110,6 +169,7 @@ function App() {
       setIsLoading(false);
     }
   };
+
   const clearSongs = () => {
     const userConfirmed = window.confirm(
       "Are you sure you want to clear all songs?"
@@ -139,6 +199,7 @@ function App() {
       setIsLoading(false);
     }
   };
+
   const getTokenFromUrl = () => {
     return window.location.hash
       .substring(1)
@@ -149,6 +210,7 @@ function App() {
         return initial;
       }, {});
   };
+
   useEffect(() => {
     if (
       messageData.message !== "" &&
@@ -157,12 +219,10 @@ function App() {
     ) {
       setSongComponents((prevComponents) => [
         ...prevComponents,
-        [
-          <div key={prevComponents.length}>
-            <p>{messageData.message}</p>
-            <Rating precision={0.5} value={rating} readOnly />
-          </div>,
-        ],
+        {
+          track: messageData.message,
+          rating: rating,
+        },
       ]);
     } else if (messageData.message == "r") {
       setSongComponents((prevComponents) => {
@@ -178,6 +238,7 @@ function App() {
       setSongComponents([]);
     }
   }, [messageData]);
+
   useEffect(() => {
     const t = getTokenFromUrl().access_token;
     if (
@@ -221,69 +282,216 @@ function App() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (playlist.message !== "") {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  }, [playlist]);
+
+  useEffect(() => {
+    const fetchTopTags = async () => {
+      try {
+        setGotTags(true);
+        const response = await fetch(
+          "http://localhost:5000/api/fetch-top-tags",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("HTTP error! Status: ${response.status}");
+        }
+        const result = await response.json();
+        setTopTags(result);
+      } catch (error) {
+        console.error("Error fetching top tags: ", error);
+      }
+    };
+    if (gotTags == false) {
+      fetchTopTags();
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Song Recommendation Tool</h1>
+    <div className="App bg-slate-300 min-h-screen flex flex-col items-center">
+      <header className="App-header mt-4">
+        <h1 className="text-3xl font-serif">Song Recommendation Tool</h1>
+        <h3 className="font-serif">A project by Leonidas Ioannou</h3>
       </header>
-      <div className="Song Search">
-        <p>Song Search</p>
-        <input placeholder="Song Name" value={track} onChange={trackChange} />
-        <input placeholder="Artist" value={artist} onChange={artistChange} />
-        <Rating
-          name="controlled"
-          precision={0.5}
-          value={rating}
-          onChange={(event, newRating) => {
-            setRating(newRating);
-          }}
-        />
-        <button onClick={addSongComponent} disabled={isLoading}>
-          {isLoading ? "Searching..." : "+Add Song"}
-        </button>
-        <div>
+      <div className="mx-64 text-center mt-4">
+        <p className="text-base font-mono">
+          How to use: Enter the title of the song, the name of the artist, and
+          your rating of that song in the corresponding input fields, then press
+          the Add Song button. Repeat for as many songs as you would like to
+          input(the more songs you give, the better recommendations you get!).
+          When you’re done entering songs, enter how many recommendations you
+          would like, how many recommendations you would like from the same
+          artist, if you would like recommendations from artists you input, any
+          tags you would like to prioritise, and click Submit!
+        </p>
+      </div>
+      <div className="Song Search items-center mt-4 flex">
+        <div className="flex flex-col">
+          <p className="mb-1">Song</p>
+          <input
+            className="mb-4 border rounded"
+            value={track}
+            onChange={trackChange}
+          />
+        </div>
+        <div className="flex flex-col ml-4">
+          <p className="mb-1">Artist</p>
+          <input
+            className="mb-4 border rounded"
+            value={artist}
+            onChange={artistChange}
+          />
+        </div>
+        <div className="flex flex-col ml-4 mb-4">
+          <p>Rating</p>
+          <Rating
+            name="controlled"
+            precision={0.5}
+            value={rating}
+            onChange={(event, newRating) => {
+              setRating(newRating);
+            }}
+          />
+        </div>
+        <div className="flex flex-col ml-4">
+          <button
+            className="bg-slate-700 text-white px-4 py-2 rounded"
+            onClick={addSongComponent}
+            disabled={isLoading}
+          >
+            {isLoading ? "Searching..." : "+Add Song"}
+          </button>
+        </div>
+      </div>
+      <div>
+        <div className="mx-auto max-w-screen-md mt-4">
           {songComponents.map((component, index) => (
-            <div key={index}>{component}</div>
+            <div key={index} className="flex items-center mb-4">
+              <p className="mr-4">{component.track}</p>
+              <Rating precision={0.5} value={component.rating} readOnly />
+            </div>
           ))}
         </div>
-        <button onClick={sendRemoveData} disabled={isLoading}>
-          {isLoading ? "Removing..." : "Remove Song"}
-        </button>
-        <button onClick={clearSongs} disabled={isLoading}>
-          {isLoading ? "Clearing..." : "Clear Songs"}
-        </button>
-        <p>Enter number of recommendations to get:</p>
-        <input
-          placeholder="Number of recommendations"
-          value={numOfRecs}
-          onChange={numOfRecsChange}
-        />
-        <p>
-          How many recommendations from the same artist should be
-          allowed?(Recommended: 2)
-        </p>
-        <input
-          placeholder="Same artist recs"
-          value={numOfSames}
-          onChange={numOfSamesChange}
-        />
-        <button onClick={submitSongs} disabled={loadingRecs}>
-          {loadingRecs ? "Submitting..." : "Submit"}
-        </button>
-        {recs.message}
-        {showCreatePlaylist && (
-          <button>
-            <a href={loginurl} target="_blank">
-              {loadingPlaylist
-                ? "Creating a Spotify Playlist.. Please Wait"
-                : "Create a Spotify Playlist"}
-            </a>
+        <div className="flex justify-center mt-4">
+          <button
+            className="bg-slate-700 text-white px-4 py-2 rounded"
+            onClick={sendRemoveData}
+            disabled={isLoading}
+          >
+            {isLoading ? "Removing..." : "Remove Song"}
           </button>
-        )}
-        <a href={playlist.message} target="_blank">
-          {createdPlaylist ? "Link to Playlist" : ""}
-        </a>
-        <p>{createdPlaylist ? playlist.errors : ""}</p>
+          <button
+            className="bg-slate-700 text-white px-4 py-2 rounded ml-4"
+            onClick={clearSongs}
+            disabled={isLoading}
+          >
+            {isLoading ? "Clearing..." : "Clear Songs"}
+          </button>
+        </div>
+        <div className="flex items-center justify-center mt-6 mr-96">
+          <p className="mr-4">Enter number of recommendations to get:</p>
+          <input
+            className="border rounded"
+            value={numOfRecs}
+            onChange={numOfRecsChange}
+          />
+        </div>
+        <div className="flex items-center justify-center mt-4 mr-14">
+          <p className="mr-4">
+            How many recommendations from the same artist should be
+            allowed?(Recommended: 2)
+          </p>
+          <input
+            className="border rounded"
+            value={numOfSames}
+            onChange={numOfSamesChange}
+          />
+        </div>
+        <div className="flex items-center justify-center mt-4 mr-14">
+          <p className="mr-4">
+            Allow recommendations from artists you have input?
+          </p>
+          <input
+            type="checkbox"
+            value={checked}
+            onChange={handleChange}
+            className="rounded-md w-6 h-6"
+          ></input>
+        </div>
+        <div className="mx-64 text-center mt-4">
+          <p className="text-base font-mono">Popular tags: {topTags.message}</p>
+        </div>
+        <div className="flex flex-col items-center mt-4">
+          <p className="mb-1">
+            (Optional) Enter three or less genre tags you would like to
+            prioritise:
+          </p>
+          <div className="flex mt-2">
+            <input
+              className="border rounded"
+              placeholder="Tag 1"
+              value={tagOne}
+              onChange={tagOneChange}
+            ></input>
+            <input
+              className="ml-4 border rounded"
+              placeholder="Tag 2"
+              value={tagTwo}
+              onChange={tagTwoChange}
+            ></input>
+            <input
+              className="ml-4 border rounded"
+              placeholder="Tag 3"
+              value={tagThree}
+              onChange={tagThreeChange}
+            ></input>
+          </div>
+        </div>
+        <div className="flex justify-center mt-8">
+          <button
+            className="bg-slate-700 text-white px-4 py-2 rounded w-36"
+            onClick={submitSongs}
+            disabled={loadingRecs}
+          >
+            {loadingRecs ? "Submitting..." : "Submit"}
+          </button>
+        </div>
+        <div className="mx-64 text-center mt-4">
+          <p className="text-base font-mono">{recs.message}</p>
+          <p className="text-base font-mono mt-2">{recs.taste}</p>
+        </div>
+        <div className="flex justify-center mt-4 mb-8">
+          {showCreatePlaylist && (
+            <button className="bg-slate-700 text-white px-4 py-2 rounded">
+              <a href={loginurl} target="_blank">
+                {loadingPlaylist
+                  ? "Creating a Spotify Playlist.. Please Wait"
+                  : "Create a Spotify Playlist"}
+              </a>
+            </button>
+          )}
+        </div>
+        <div className="flex flex-col items-center mt-4 mb-8">
+          {createdPlaylist && (
+            <button className="bg-slate-700 text-white px-4 py-2 rounded">
+              <a href={playlist.message} target="_blank">
+                {createdPlaylist ? "Link to Playlist" : ""}
+              </a>
+            </button>
+          )}
+          <p className="text-base font-mono mt-2">
+            {createdPlaylist ? playlist.errors : ""}
+          </p>
+        </div>
       </div>
     </div>
   );

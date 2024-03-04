@@ -309,3 +309,241 @@
 - _1 hour_ Thought of new feature, get and display a list of the most popular last.fm tags(as suggestions), allow user to prioritise some tags by adding three input fields
 - _0.5 hour_ Supervisor meeting preparation, updated github repository
 - _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+
+* _6 hours_ Implemented the new feature, started styling the app
+
+## 13 Dec 2023
+
+- _8 hours_ Finished styling
+
+## 14 Dec 2023
+
+- _3 hours_ Wrote and submitted status report
+- _2 hours_ Thought of an initial plan for evaluation, wrote down a draft of questions and process
+
+## 15 Dec 2023
+
+- _4 hours_ Refactored some of the code
+
+### Week 17
+
+## 08 Jan 2024
+
+- _0.5 hour_ Supervisor meeting preparation
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _1 hour_ Fixed the following bugs by adding error alerts: Song added doesn't have genre tags recorded, Song added not found, User clicks remove song button when there are no songs to remove
+
+## 09 Jan 2024
+
+- _2 hours_ Decided that final feature should be a checkbox that allows the user to decide if they want recommendations from artists they have input, properly implemented the feature
+
+## 10 Jan 2024
+
+- _2 hours_ Testing the app, added error messages if number of recommendations parameter and number of recommendations from same artist to be allowed parameter are not numbers
+
+## 11 Jan 2024
+
+- _2 hours_ More bug hunting, made a draft Google Form of the evaluation
+
+## 13 Jan 2024
+
+- _0.5 hour_ More bug hunting, added error messages if number of recommendations parameter and number of recommendations from same artist to be allowed parameter are numbers <= 0
+- _0.5 hour_ Supervisor meeting preparation
+
+### Week 18
+
+## 15 Jan 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _0.5 hour_ Converted evaluation form questions to proper Likert Scale format
+- _0.5 hour_ App no longer allows user to input the same song more than once
+- _0.5 hour_ Started trying to gather participants
+
+## 16 Jan 2024
+
+- _0.5 hour_ Gathering more participants
+
+## 17 Jan 2024
+
+- _1 hour_ Tried different colour schemes, current one is a light red background with red buttons
+
+## 18 Jan 2024
+
+- _1 hour_ Finalised participants for evaluation, found ethics checklist and made a consent form for participants.
+
+## 20 Jan 2024
+
+- _0.5 hour_ Supervisor meeting preparation
+
+### Week 19
+
+## 22 Jan 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+
+* _1 hour_ Found some papers to go through and use for the background section of the dissertation
+* _0.5 hour_ Thought that by using last.fm listening data to get similar songs to ones input, can improve recommendations by boosting scores of recommendations that people that listen to the input songs listen to as well, introducing a collaboration-based recommender system aspect to my algorithm
+
+## 23 Jan 2024
+
+- _1 hour_ Implemented collaboration-based aspect mentioned above
+
+## 24 Jan 2024
+
+- _1.5 hour_ Made notes on the first paper to be used for the background section of the dissertation
+
+## 25 Jan 2024
+
+- _2 hours_ Working through and making notes on the second paper
+
+## 26 Jan 2024
+
+- _1.5 hours_ Finished working through and making notes on the second paper
+
+## 27 Jan 2024
+
+- _0.5 hour_ Supervisor meeting preparation
+
+### Week 20
+
+## 29 Jan 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+
+* _1.5 hour_ Read through and made notes on third paper
+
+## 31 Jan 2024
+
+- _1 hour_ Tried multiple other colour schemes, decided on a new one although kept details of previous one
+
+## 1 Feb 2024
+
+- _1 hour_ Found more resources on recommender systems in general
+
+## 2 Feb 2024
+
+- _1 hour_ Made a plan for the background section of the dissertation
+
+## 3 Feb 2024
+
+- _1.5 hour_ Started writing background section of the dissertation
+- _0.5 hour_ Supervisor meeting preparation
+
+### Week 21
+
+## 5 Feb 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _0.5 hour_ Contacted evaluation participants asking for email addresses to send consent forms
+- _0.5 hour_ Sent consent forms to evaluation participants
+- _0.5 hour_ Continued work on dissertation background
+
+## 6 Feb 2024
+
+- _2 hours_ Continued work on dissertation background
+
+## 7 Feb 2024
+
+- _2 hours_ Continued work on dissertation background
+
+## 8 Feb 2024
+
+- _0.5 hour_ Received signed consent forms from all participants, signed them myself and sorted them
+- _1.5 hour_ Reached out to all participants and set dates and times for the stage of the evaluation where they use the app
+
+## 9 Feb 2024
+
+- _1 hour_ Ran two evaluation sessions
+- _1 hour_ Continued work on dissertation background
+
+## 10 Feb 2024
+
+- _1.5 hour_ Ran three evaluation sessions
+- _0.5 hour_ Fixed a bug that occured during one of the evaluations
+- _0.5 hour_ Continued work on dissertation background
+- _0.5 hour_ Supervisor meeting preparation
+
+## 11 Feb 2024
+
+- _0.5_ Ran one evaluation
+
+### Week 22
+
+## 12 Feb 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _1 hour_ Ran two evaluations
+
+## 13 Feb 2024
+
+- _0.5 hour_ Ran one evaluation
+- _0.5 hour_ Fixed another bug
+- _1 hour_ Continued work on dissertation background
+
+## 14 Feb 2024
+
+- _2 hours_ Continued work on dissertation background
+
+## 15 Feb 2024
+
+- _0.5 hour_ Ran the final evaluation
+- _1.5 hour_ Continued work on dissertation background
+
+## 16 Feb 2024
+
+- _2 hours_ Continued work on dissertation background
+
+## 17 Feb 2024
+
+- _2 hours_ Finished draft of dissertation background
+- _0.5 hour_ Supervisor meeting preparation
+
+### Week 23
+
+## 19 Feb 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes too moodle
+- _0.5 hour_ Planned how many pages to allocate to each remaining chapter
+- _1 hour_ Started work on analysis/requirements chapter
+
+## 21 Feb 2024
+
+- _2 hours_ Continued work on analysis/requirements chapter
+
+## 22 Feb 2024
+
+- _2 hours_ Finished draft of analysis/requirements chapter
+
+## 23 Feb 2024
+
+- _0.5 hours_ Checked background section feedback and adjusted dissertation based on it
+- _1.5 hours_ Started design chapter
+
+## 24 Feb 2024
+
+- _2 hours_ Continued work on design chapter
+
+* _0.5 hour_ Supervisor meeting preparation
+
+### Week 24
+
+## 26 Feb 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _1.5 hour_ Continued work on design chapter
+
+## 27 Feb 2024
+
+- _2 hours_ Continued work on design chapter
+
+## 28 Feb 2024
+
+- _2 hours_ Continued work on design chapter
+
+## 29 Feb 2024
+
+- _2 hours_ Finished design chapter
+
+## 02 Mar 2024
+
+- _3 hours_ Started implementation chapter
