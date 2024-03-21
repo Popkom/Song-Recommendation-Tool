@@ -547,3 +547,88 @@
 ## 02 Mar 2024
 
 - _3 hours_ Started implementation chapter
+
+## 03 Mar 2024
+
+- _1 hour_ Continued implementation chapter
+- _0.5 hour_ Supervisor meeting preparation
+
+### Week 25
+
+## 04 Mar 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _0.5 hour_ Changed all figure references in dissertation to latex references
+- _1 hour_ Continued work on implementation chapter
+
+## 05 Mar 2024
+
+- _2 hours_ Continued work on implementation chapter
+
+## 06 Mar 2024
+
+- _2 hours_ Continued work on implementation chapter
+
+## 07 Mar 2024
+
+- _2 hours_ Continued work on implementation chapter
+
+## 08 Mar 2024
+
+- _2 hours_ Continued work on implementation chapter
+
+## 09 Mar 2024
+
+- _2 hours_ Finished implementation chapter
+
+## 10 Mar 2024
+
+- _2.5 hours_ Started evaluation chapter
+- _0.5 hour_ Supervisor meeting preparation
+
+### Week 26
+
+## 11 Mar 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _1.5 hour_ Continued work on evaluation chapter
+
+## 12 Mar 2024
+
+- _2 hours_ Continued work on evaluation chapter
+
+## 13 Mar 2024
+
+- _3 hours_ Finished work on evaluation chapter
+
+## 14 Mar 2024
+
+- _2 hours_ Wrote introduction chapter
+
+## 15 Mar 2024
+
+- _2 hours_ Wrote conclusion chapter
+
+## 16 Mar 2024
+
+- _2 hours_ Wrote abstract, properly added bibliography references
+
+## 17 Mar 2024
+
+- _2 hours_ Added most appendices, started proof-reading
+
+* _0.5 hour_ Supervisor meeting preparation
+
+### Week 27
+
+## 18 Mar 2024
+
+- _0.5 hour_ Supervisor meeting, uploaded meeting minutes to moodle
+- _1 hour_ Finished proof-reading
+- _2 hours_ Created presentation slides
+
+## 19 Mar 2024
+
+- _1 hour_ Recorded presentation
+- _0.5 hour_ Created directory structure file, added to appendices
+- _0.5 hour_ Prepared for submission.

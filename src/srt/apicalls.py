@@ -49,7 +49,6 @@ def receive_song():
         return jsonify({"message": "Success"})
     # add song button
     songdata = data.split("/")
-    print(songdata[2])
     if (songdata[2] == "null") or (songdata[2] == "0"):
         return jsonify({"message": "ratingerror"})
     respandtrack = lastfm_get({"track": songdata[0], "artist": songdata[1]})
